@@ -419,8 +419,8 @@
         <span class="label">Treasury wallet</span>
         <span class="address">0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2</span>
         <span class="source-row">
-          <span class="pill">OpenSea floor: <strong id="floorPill">0.064 HYPE</strong></span>
-          <a class="pill" href="https://opensea.io/collection/hyperrocks-hyperevm" target="_blank" rel="noreferrer">OpenSea HyperRocks</a>
+          <span class="pill">Drip.Trade floor: <strong id="floorPill">0.190 HYPE</strong></span>
+          <a class="pill" href="https://drip.trade/collections/hyperrocks" target="_blank" rel="noreferrer">Drip HyperRocks</a>
         </span>
         <span class="status" id="status">Loading live treasury data...</span>
       </section>
@@ -461,13 +461,13 @@
           </label>
           <label class="field">
             <span>HyperRocks floor in HYPE</span>
-            <input id="floorInput" type="number" min="0.0001" step="0.001" value="0.064">
+            <input id="floorInput" type="number" min="0.0001" step="0.001" value="0.19">
           </label>
         </article>
 
         <article class="card">
           <h2>Fee Math</h2>
-          <p class="small">LiquidLaunch charges a 1% trading fee on buys and sells. The creator side receives 50% of that fee, so the $MPS treasury estimate is volume x 0.5%. The floor input starts from OpenSea's HyperRocks floor.</p>
+          <p class="small">LiquidLaunch charges a 1% trading fee on buys and sells. The creator side receives 50% of that fee, so the $MPS treasury estimate is volume x 0.5%. The floor input starts from Drip.Trade's HyperRocks floor.</p>
           <div class="rows">
             <div class="row"><span>Tracked new volume</span><strong id="volumeOut">0.00 HYPE</strong></div>
             <div class="row"><span>Estimated creator fee</span><strong id="creatorFeeOut">0.00 HYPE</strong></div>
@@ -479,7 +479,7 @@
     </main>
 
     <footer>
-      <div class="wrap">Token: $MPS MicroProcessors. Not affiliated with NVIDIA. Treasury and HyperRocks balances are read from HyperEVM RPC. OpenSea floor captured from the HyperRocks collection page and kept editable.</div>
+      <div class="wrap">Token: $MPS MicroProcessors. Not affiliated with NVIDIA. Treasury and HyperRocks balances are read from HyperEVM RPC. Floor captured from Drip.Trade and kept editable.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
