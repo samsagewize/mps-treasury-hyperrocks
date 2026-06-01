@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MPS Treasury | HyperRocks Buys</title>
+    <meta name="description" content="Live MPS treasury tracker for buying HyperRocks.">
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #060807;
+        --panel: #101513;
+        --panel2: #151b18;
+        --line: rgba(255,255,255,.12);
+        --text: #f4f8f5;
+        --muted: #9aa7a1;
+        --soft: #6f7b76;
+        --green: #32edc2;
+        --lime: #d9ff73;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      input, button { font: inherit; }
+
+      .wrap {
+        width: min(980px, calc(100% - 28px));
+        margin: 0 auto;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        padding: 18px 0 34px;
+        background: #060807;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 850;
+      }
+
+      .mark {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        border: 1px solid rgba(50,237,194,.48);
+        border-radius: 7px;
+        color: var(--green);
+        background: rgba(50,237,194,.1);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+
+      .btn {
+        display: inline-flex;
+        min-height: 39px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 9px 12px;
+        background: rgba(255,255,255,.05);
+        font-weight: 760;
+      }
+
+      .btn.primary {
+        border-color: transparent;
+        background: var(--green);
+        color: #04110f;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 150px;
+        align-items: end;
+        gap: 24px;
+        padding-top: 54px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--lime);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--lime);
+        box-shadow: 0 0 0 7px rgba(217,255,115,.1);
+      }
+
+      h1 {
+        max-width: 680px;
+        margin: 14px 0 0;
+        font-size: clamp(40px, 7vw, 78px);
+        line-height: .95;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 660px;
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 2vw, 20px);
+        line-height: 1.45;
+      }
+
+      .rock {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .rock img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+
+      main { padding: 22px 0 68px; }
+
+      .wallet {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+        background: var(--panel);
+      }
+
+      .label {
+        display: block;
+        color: var(--soft);
+        font-size: 12px;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      .address {
+        overflow-wrap: anywhere;
+        color: var(--text);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 14px;
+      }
+
+      .status {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .source-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        width: fit-content;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 10px;
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .card {
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+        background: var(--panel);
+      }
+
+      .card.accent {
+        background: linear-gradient(180deg, rgba(50,237,194,.12), var(--panel));
+      }
+
+      .num {
+        display: block;
+        margin-top: 9px;
+        font-size: clamp(28px, 4vw, 42px);
+        font-weight: 880;
+        line-height: 1;
+      }
+
+      .hint {
+        display: block;
+        margin-top: 9px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(24px, 4vw, 38px);
+        line-height: 1;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+        margin-top: 12px;
+      }
+
+      .field span {
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 760;
+      }
+
+      input {
+        width: 100%;
+        min-height: 45px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 10px 12px;
+        background: #080b0a;
+        color: var(--text);
+      }
+
+      .rows {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 14px;
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+        color: var(--muted);
+      }
+
+      .row strong { color: var(--text); }
+
+      .small {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 20px 0;
+        color: var(--soft);
+        font-size: 13px;
+      }
+
+      @media (max-width: 780px) {
+        nav { align-items: flex-start; flex-direction: column; }
+        .actions { width: 100%; justify-content: flex-start; }
+        .hero, .panel { grid-template-columns: 1fr; }
+        .rock { max-width: 150px; }
+        .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (max-width: 520px) {
+        .grid { grid-template-columns: 1fr; }
+        .btn { width: 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <nav>
+          <a class="brand" href="#">
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <path d="M4 14.5 9.5 4l5 6L20 6.5 15 20H8l-4-5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            MPS Treasury
+          </a>
+          <div class="actions">
+            <a class="btn primary" href="https://liquidlaunch.app/token/0x954e6039311c027be31b3e6d538d938612736e38" target="_blank" rel="noreferrer">Buy $MPS</a>
+            <a class="btn" href="https://drip.trade/collections/hyperrocks" target="_blank" rel="noreferrer">HyperRocks</a>
+            <a class="btn" href="https://hyperevmscan.io/address/0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2" target="_blank" rel="noreferrer">Treasury</a>
+          </div>
+        </nav>
+
+        <section class="hero">
+          <div>
+            <div class="tag"><span class="dot"></span> Starting from zero</div>
+            <h1>$MPS fees will buy HyperRocks.</h1>
+            <p class="lede">This dashboard tracks the new treasury wallet, pending $MPS creator fees, and how many HyperRocks can be bought at the current floor assumption.</p>
+          </div>
+          <div class="rock">
+            <img src="https://static.drip.trade/collections/hyperrocks_pfp.png" alt="HyperRocks collection artwork">
+          </div>
+        </section>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="wallet">
+        <span class="label">Treasury wallet</span>
+        <span class="address">0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2</span>
+        <span class="source-row">
+          <span class="pill">OpenSea floor: <strong id="floorPill">0.064 HYPE</strong></span>
+          <a class="pill" href="https://opensea.io/collection/hyperrocks-hyperevm" target="_blank" rel="noreferrer">OpenSea HyperRocks</a>
+        </span>
+        <span class="status" id="status">Loading live treasury data...</span>
+      </section>
+
+      <section class="grid" aria-label="MPS treasury dashboard">
+        <article class="card">
+          <span class="label">Treasury HYPE</span>
+          <strong class="num"><span id="treasuryHype">0.00</span></strong>
+          <span class="hint">Live wallet native balance</span>
+        </article>
+
+        <article class="card">
+          <span class="label">Pending MPS Fees</span>
+          <strong class="num"><span id="pendingFees">0.00</span></strong>
+          <span class="hint">Live LiquidLaunch claim preview</span>
+        </article>
+
+        <article class="card accent">
+          <span class="label">HyperRocks Owned</span>
+          <strong class="num"><span id="rocksOwned">0</span></strong>
+          <span class="hint">Live HyperRocks balance</span>
+        </article>
+
+        <article class="card">
+          <span class="label">Buyable Now</span>
+          <strong class="num"><span id="buyableNow">0</span></strong>
+          <span class="hint">Treasury HYPE + pending fees / floor</span>
+        </article>
+      </section>
+
+      <section class="panel">
+        <article class="card">
+          <h2>Volume Starts Here</h2>
+          <p class="small">We are starting the public tracker from zero. Add new $MPS trading volume here to estimate creator fees and rocks funded by the next claim.</p>
+          <label class="field">
+            <span>New MPS volume in HYPE</span>
+            <input id="volumeInput" type="number" min="0" step="0.01" value="0">
+          </label>
+          <label class="field">
+            <span>HyperRocks floor in HYPE</span>
+            <input id="floorInput" type="number" min="0.0001" step="0.001" value="0.064">
+          </label>
+        </article>
+
+        <article class="card">
+          <h2>Fee Math</h2>
+          <p class="small">LiquidLaunch charges a 1% trading fee on buys and sells. The creator side receives 50% of that fee, so the $MPS treasury estimate is volume x 0.5%. The floor input starts from OpenSea's HyperRocks floor.</p>
+          <div class="rows">
+            <div class="row"><span>Tracked new volume</span><strong id="volumeOut">0.00 HYPE</strong></div>
+            <div class="row"><span>Estimated creator fee</span><strong id="creatorFeeOut">0.00 HYPE</strong></div>
+            <div class="row"><span>Estimated rocks funded</span><strong id="estimatedRocksOut">0 rocks</strong></div>
+            <div class="row"><span>Rocks bought so far</span><strong id="rocksBoughtOut">0 rocks</strong></div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">Token: $MPS MicroProcessors. Treasury and HyperRocks balances are read from HyperEVM RPC. OpenSea floor captured from the HyperRocks collection page and kept editable.</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+    <script>
+      const TREASURY = "0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2";
+      const MPS = "0x954e6039311c027be31b3e6d538d938612736e38";
+      const HYPERROCKS = "0x4CF79252EA6861c4338284e1A1F724d4e7ef667b";
+      const LIQUID_LAUNCH = "0xDEC3540f5BA6f2aa3764583A9c29501FeB020030";
+      const RPC_URL = "https://rpc.hyperliquid.xyz/evm";
+      const FEE_RATE = 0.01;
+      const CREATOR_SHARE = 0.5;
+
+      let liveTreasuryHype = 0;
+      let livePendingFees = 0;
+      let liveRocksOwned = 0;
+
+      const $ = (id) => document.getElementById(id);
+      const fmt = (n, d = 2) => Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: d, minimumFractionDigits: d }) : "--";
+      const fmtTiny = (n) => Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: 6 }) : "--";
+      const fmtInt = (n) => Number.isFinite(n) ? Math.floor(n).toLocaleString() : "--";
+
+      function calculate() {
+        const volume = Number($("volumeInput").value) || 0;
+        const floor = Math.max(Number($("floorInput").value) || 0.19, 0.0001);
+        const creatorFee = volume * FEE_RATE * CREATOR_SHARE;
+        const estimatedRocks = creatorFee / floor;
+        const buyableNow = (liveTreasuryHype + livePendingFees) / floor;
+
+        $("volumeOut").textContent = `${fmt(volume)} HYPE`;
+        $("creatorFeeOut").textContent = `${fmt(creatorFee)} HYPE`;
+        $("estimatedRocksOut").textContent = `${fmtInt(estimatedRocks)} rocks`;
+        $("rocksBoughtOut").textContent = `${fmtInt(liveRocksOwned)} rocks`;
+        $("buyableNow").textContent = fmtInt(buyableNow);
+        $("floorPill").textContent = `${fmt(floor, 3)} HYPE`;
+      }
+
+      async function loadLive() {
+        if (!window.ethers) {
+          $("status").textContent = "Live library blocked. Static zero tracker is still usable.";
+          calculate();
+          return;
+        }
+
+        try {
+          const provider = new ethers.JsonRpcProvider(RPC_URL);
+          const launchAbi = ["function previewClaimFees(address token) view returns (uint256 whypeAmount, uint256 tokensAmount)"];
+          const erc721Abi = ["function balanceOf(address owner) view returns (uint256)"];
+          const launch = new ethers.Contract(LIQUID_LAUNCH, launchAbi, provider);
+          const rocks = new ethers.Contract(HYPERROCKS, erc721Abi, provider);
+
+          const [balance, pending, rockBalance] = await Promise.all([
+            provider.getBalance(TREASURY),
+            launch.previewClaimFees(MPS),
+            rocks.balanceOf(TREASURY)
+          ]);
+
+          liveTreasuryHype = Number(ethers.formatEther(balance));
+          livePendingFees = Number(ethers.formatEther(pending.whypeAmount || pending[0]));
+          liveRocksOwned = Number(rockBalance);
+
+          $("treasuryHype").textContent = fmtTiny(liveTreasuryHype);
+          $("pendingFees").textContent = fmtTiny(livePendingFees);
+          $("rocksOwned").textContent = fmtInt(liveRocksOwned);
+          $("status").textContent = `Live data loaded. Treasury has ${fmtTiny(liveTreasuryHype)} HYPE and ${fmtInt(liveRocksOwned)} HyperRocks.`;
+        } catch (error) {
+          $("status").textContent = "Live RPC read failed. Showing zero baseline until the next refresh.";
+        }
+
+        calculate();
+      }
+
+      ["volumeInput", "floorInput"].forEach((id) => $(id).addEventListener("input", calculate));
+      calculate();
+      loadLive();
+      setInterval(loadLive, 30000);
+    </script>
+  </body>
+</html>
