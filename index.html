@@ -161,17 +161,31 @@
       }
 
       .rock {
+        display: grid;
+        min-height: 150px;
+        place-items: center;
         overflow: hidden;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: var(--panel);
+        background:
+          linear-gradient(135deg, rgba(50,237,194,.12), transparent 42%),
+          var(--panel);
       }
 
-      .rock img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
+      .rock-glyph {
+        display: grid;
+        width: 96px;
+        height: 96px;
+        place-items: center;
+        border: 1px solid rgba(50,237,194,.28);
+        border-radius: 8px;
+        color: var(--green);
+        background: rgba(50,237,194,.08);
+      }
+
+      .rock-glyph svg {
+        width: 56px;
+        height: 56px;
       }
 
       main { padding: 22px 0 68px; }
@@ -373,7 +387,7 @@
           </a>
           <div class="actions">
             <a class="btn primary" href="https://liquidlaunch.app/token/0x954e6039311c027be31b3e6d538d938612736e38" target="_blank" rel="noreferrer">Buy $MPS</a>
-            <a class="btn" href="https://drip.trade/collections/hyperrocks" target="_blank" rel="noreferrer">HyperRocks</a>
+            <a class="btn" href="https://opensea.io/collection/hyperrocks-hyperevm" target="_blank" rel="noreferrer">HyperRocks</a>
             <a class="btn" href="https://hyperevmscan.io/address/0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2" target="_blank" rel="noreferrer">Treasury</a>
           </div>
         </nav>
@@ -390,7 +404,12 @@
             <p class="notice">MicroProcessors is inspired by GPU and semiconductor culture. It is not affiliated with, sponsored by, endorsed by, or connected to NVIDIA Corporation.</p>
           </div>
           <div class="rock">
-            <img src="https://static.drip.trade/collections/hyperrocks_pfp.png" alt="HyperRocks collection artwork">
+            <div class="rock-glyph" aria-label="HyperRocks treasury mark">
+              <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <path d="M12 42 25 14l12 15 15-9-11 31H22L12 42Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+                <path d="M25 14 22 51m15-22 4 22" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+              </svg>
+            </div>
           </div>
         </section>
       </div>
@@ -419,8 +438,8 @@
         <span class="label">Treasury wallet</span>
         <span class="address">0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2</span>
         <span class="source-row">
-          <span class="pill">Drip.Trade floor: <strong id="floorPill">0.190 HYPE</strong></span>
-          <a class="pill" href="https://drip.trade/collections/hyperrocks" target="_blank" rel="noreferrer">Drip HyperRocks</a>
+          <span class="pill">OpenSea floor: <strong id="floorPill">0.250 HYPE</strong></span>
+          <a class="pill" href="https://opensea.io/collection/hyperrocks-hyperevm" target="_blank" rel="noreferrer">OpenSea HyperRocks</a>
         </span>
         <span class="status" id="status">Loading live treasury data...</span>
       </section>
@@ -461,13 +480,13 @@
           </label>
           <label class="field">
             <span>HyperRocks floor in HYPE</span>
-            <input id="floorInput" type="number" min="0.0001" step="0.001" value="0.19">
+            <input id="floorInput" type="number" min="0.0001" step="0.001" value="0.25">
           </label>
         </article>
 
         <article class="card">
           <h2>Fee Math</h2>
-          <p class="small">LiquidLaunch charges a 1% trading fee on buys and sells. The creator side receives 50% of that fee, so the $MPS treasury estimate is volume x 0.5%. The floor input starts from Drip.Trade's HyperRocks floor.</p>
+          <p class="small">LiquidLaunch charges a 1% trading fee on buys and sells. The creator side receives 50% of that fee, so the $MPS treasury estimate is volume x 0.5%. The floor input starts from OpenSea's HyperRocks floor.</p>
           <div class="rows">
             <div class="row"><span>Tracked new volume</span><strong id="volumeOut">0.00 HYPE</strong></div>
             <div class="row"><span>Estimated creator fee</span><strong id="creatorFeeOut">0.00 HYPE</strong></div>
@@ -479,7 +498,7 @@
     </main>
 
     <footer>
-      <div class="wrap">Token: $MPS MicroProcessors. Not affiliated with NVIDIA. Treasury and HyperRocks balances are read from HyperEVM RPC. Floor captured from Drip.Trade and kept editable.</div>
+      <div class="wrap">Token: $MPS MicroProcessors. Not affiliated with NVIDIA. Treasury and HyperRocks balances are read from HyperEVM RPC. Floor captured from OpenSea and kept editable.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
@@ -503,7 +522,7 @@
 
       function calculate() {
         const volume = Number($("volumeInput").value) || 0;
-        const floor = Math.max(Number($("floorInput").value) || 0.19, 0.0001);
+        const floor = Math.max(Number($("floorInput").value) || 0.25, 0.0001);
         const creatorFee = volume * FEE_RATE * CREATOR_SHARE;
         const estimatedRocks = creatorFee / floor;
         const buyableNow = (liveTreasuryHype + livePendingFees) / floor;
