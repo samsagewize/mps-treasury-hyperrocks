@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MPS Treasury | HyperRocks Buys</title>
-    <meta name="description" content="Live MPS treasury tracker for buying HyperRocks.">
+    <title>MicroProcessors | $MPS HyperRocks Treasury</title>
+    <meta name="description" content="MicroProcessors is a GPU-inspired HyperEVM treasury token that turns $MPS flow into HyperRocks buys.">
     <style>
       :root {
         color-scheme: dark;
@@ -33,8 +33,10 @@
       input, button { font: inherit; }
 
       .wrap {
-        width: min(980px, calc(100% - 28px));
+        width: 100%;
+        max-width: 980px;
         margin: 0 auto;
+        padding: 0 14px;
       }
 
       header {
@@ -101,6 +103,10 @@
         padding-top: 54px;
       }
 
+      .hero > * {
+        min-width: 0;
+      }
+
       .tag {
         display: inline-flex;
         align-items: center;
@@ -121,9 +127,10 @@
       h1 {
         max-width: 680px;
         margin: 14px 0 0;
-        font-size: clamp(40px, 7vw, 78px);
+        font-size: clamp(34px, 7vw, 78px);
         line-height: .95;
         letter-spacing: 0;
+        overflow-wrap: break-word;
       }
 
       .lede {
@@ -131,6 +138,25 @@
         margin: 16px 0 0;
         color: var(--muted);
         font-size: clamp(16px, 2vw, 20px);
+        line-height: 1.45;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 22px;
+      }
+
+      .notice {
+        max-width: 680px;
+        margin-top: 16px;
+        border: 1px solid rgba(217,255,115,.18);
+        border-radius: 8px;
+        padding: 11px 12px;
+        background: rgba(217,255,115,.06);
+        color: var(--muted);
+        font-size: 13px;
         line-height: 1.45;
       }
 
@@ -237,6 +263,13 @@
         margin-top: 10px;
       }
 
+      .lore {
+        display: grid;
+        grid-template-columns: 1.1fr .9fr;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
       h2 {
         margin: 0 0 12px;
         font-size: clamp(24px, 4vw, 38px);
@@ -288,6 +321,23 @@
         line-height: 1.5;
       }
 
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .chip {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 8px 10px;
+        background: rgba(255,255,255,.04);
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
       footer {
         border-top: 1px solid var(--line);
         padding: 20px 0;
@@ -298,7 +348,7 @@
       @media (max-width: 780px) {
         nav { align-items: flex-start; flex-direction: column; }
         .actions { width: 100%; justify-content: flex-start; }
-        .hero, .panel { grid-template-columns: 1fr; }
+        .hero, .panel, .lore { grid-template-columns: 1fr; }
         .rock { max-width: 150px; }
         .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
@@ -319,7 +369,7 @@
                 <path d="M4 14.5 9.5 4l5 6L20 6.5 15 20H8l-4-5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
               </svg>
             </span>
-            MPS Treasury
+            MicroProcessors
           </a>
           <div class="actions">
             <a class="btn primary" href="https://liquidlaunch.app/token/0x954e6039311c027be31b3e6d538d938612736e38" target="_blank" rel="noreferrer">Buy $MPS</a>
@@ -330,9 +380,14 @@
 
         <section class="hero">
           <div>
-            <div class="tag"><span class="dot"></span> Starting from zero</div>
-            <h1>$MPS fees will buy HyperRocks.</h1>
-            <p class="lede">This dashboard tracks the new treasury wallet, pending $MPS creator fees, and how many HyperRocks can be bought at the current floor assumption.</p>
+            <div class="tag"><span class="dot"></span> GPU-inspired HyperEVM treasury token</div>
+            <h1>MicroProcessors turn flow into rocks.</h1>
+            <p class="lede">$MPS is lore for the chip layer beneath markets: GPUs, validators, bots, and on-chain compute. Trading flow feeds a public treasury designed to buy HyperRocks from the floor.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="https://liquidlaunch.app/token/0x954e6039311c027be31b3e6d538d938612736e38" target="_blank" rel="noreferrer">Buy $MPS</a>
+              <a class="btn" href="#treasury">View Treasury</a>
+            </div>
+            <p class="notice">MicroProcessors is inspired by GPU and semiconductor culture. It is not affiliated with, sponsored by, endorsed by, or connected to NVIDIA Corporation.</p>
           </div>
           <div class="rock">
             <img src="https://static.drip.trade/collections/hyperrocks_pfp.png" alt="HyperRocks collection artwork">
@@ -342,7 +397,25 @@
     </header>
 
     <main class="wrap">
-      <section class="wallet">
+      <section class="lore">
+        <article class="card">
+          <h2>The Lore</h2>
+          <p class="small">Every market has a hidden substrate: processors moving signals, GPUs training agents, validators executing blocks, and bots chasing the next edge. MicroProcessors turns that machine mythology into a simple treasury mission.</p>
+          <div class="chips">
+            <span class="chip">Compute</span>
+            <span class="chip">GPUs</span>
+            <span class="chip">HyperEVM</span>
+            <span class="chip">Treasury</span>
+            <span class="chip">HyperRocks</span>
+          </div>
+        </article>
+        <article class="card">
+          <h2>The Mission</h2>
+          <p class="small">$MPS exists to route token activity into a transparent wallet, track claimable fees, and acquire HyperRocks as the treasury asset. The dashboard starts from zero so every rock can be accounted for publicly.</p>
+        </article>
+      </section>
+
+      <section id="treasury" class="wallet">
         <span class="label">Treasury wallet</span>
         <span class="address">0xCBA3880369455534b8DF7A845BE593c1C6B9b5B2</span>
         <span class="source-row">
@@ -381,7 +454,7 @@
       <section class="panel">
         <article class="card">
           <h2>Volume Starts Here</h2>
-          <p class="small">We are starting the public tracker from zero. Add new $MPS trading volume here to estimate creator fees and rocks funded by the next claim.</p>
+          <p class="small">The public tracker starts from zero. Add new $MPS trading volume here to estimate creator fees and rocks funded by the next claim.</p>
           <label class="field">
             <span>New MPS volume in HYPE</span>
             <input id="volumeInput" type="number" min="0" step="0.01" value="0">
@@ -406,7 +479,7 @@
     </main>
 
     <footer>
-      <div class="wrap">Token: $MPS MicroProcessors. Treasury and HyperRocks balances are read from HyperEVM RPC. OpenSea floor captured from the HyperRocks collection page and kept editable.</div>
+      <div class="wrap">Token: $MPS MicroProcessors. Not affiliated with NVIDIA. Treasury and HyperRocks balances are read from HyperEVM RPC. OpenSea floor captured from the HyperRocks collection page and kept editable.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
